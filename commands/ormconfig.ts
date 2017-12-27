@@ -1,6 +1,4 @@
 import * as dotenv from 'dotenv';
-dotenv.config();
-
 import * as path from 'path';
 import * as Chalk from 'chalk';
 import * as jsonfile from 'jsonfile';

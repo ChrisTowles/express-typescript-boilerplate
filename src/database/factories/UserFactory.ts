@@ -15,6 +15,7 @@ factory.define(User, (faker: typeof Faker) => {
     const email = faker.internet.email(firstName, lastName);
 
     const user = new User();
+
     user.firstName = firstName;
     user.lastName = lastName;
     user.email = email;

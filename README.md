@@ -22,6 +22,12 @@
 [DataLoaders](https://github.com/facebook/dataloader),
 by [w3tech](https://github.com/w3tecch)
 
+
+Setting up Firestore
+https://firebase.google.com/docs/firestore/quickstart
+
+
+
 ## Why
 
 Our main goal with this project is a feature complete server application.

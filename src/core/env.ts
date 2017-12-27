@@ -5,7 +5,14 @@ import * as pkg from '../../package.json';
 /**
  * Load .env file or for tests the .env.test file.
  */
-dotenv.config({ path: path.join(process.cwd(), `.env${((process.env.NODE_ENV === 'test') ? '.test' : '')}`) });
+
+const envFilePath = path.join(process.cwd(), `.env.${process.env.NODE_ENV || 'development'}`);
+dotenv.config({ path: envFilePath});
+
+console.log('envFilePath', envFilePath);
+
+
+
 
 /**
  * Environment variables
@@ -53,6 +60,14 @@ export const env = {
         synchronize: toBool(getOsEnv('DB_SYNCHRONIZE')),
         logging: toBool(getOsEnv('DB_LOGGING')),
     },
+    firebase: {
+        apiKey: 'AIzaSyB7_QMTSdQg2FqtpitKSCdQzRKYywxm0LA',
+        authDomain: 'roadid-ctowles-dev.firebaseapp.com',
+        databaseURL: 'https://roadid-ctowles-dev.firebaseio.com',
+        projectId: 'roadid-ctowles-dev',
+        storageBucket: 'roadid-ctowles-dev.appspot.com',
+        messagingSenderId: '666662642857',
+    },
     graphql: {
         enabled: toBool(getOsEnv('GRAPHQL_ENABLED')),
         route: getOsEnv('GRAPHQL_ROUTE'),
@@ -72,6 +87,7 @@ export const env = {
         password: getOsEnv('MONITOR_PASSWORD'),
     },
 };
+console.log('env', env.firebase);
 
 function getOsEnv(key: string): string {
     return process.env[key] as string;
