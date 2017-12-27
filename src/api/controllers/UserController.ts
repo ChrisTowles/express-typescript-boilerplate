@@ -1,10 +1,10 @@
-import { JsonController, Get, Post, Put, Param, Delete, Body, OnUndefined, Authorized, CurrentUser } from 'routing-controllers';
+import { JsonController, Get, Post, Put, Param, Delete, Body, OnUndefined, CurrentUser } from 'routing-controllers';
 import { UserService } from '../services/UserService';
 import { User } from '../models/User';
 import { UserNotFoundError } from '../errors/UserNotFoundError';
 
 
-@Authorized()
+// @Authorized()
 @JsonController('/users')
 export class UserController {
 

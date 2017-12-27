@@ -1,6 +1,7 @@
 import * as admin from 'firebase-admin';
 import {MicroframeworkSettings, MicroframeworkLoader} from 'microframework-w3tec';
 import {env} from '../core/env';
+import { Container } from 'typedi';
 
 
 export const firebaseLoader: MicroframeworkLoader = async (settings: MicroframeworkSettings | undefined) => {
@@ -15,6 +16,8 @@ export const firebaseLoader: MicroframeworkLoader = async (settings: Microframew
     });
     const db = admin.firestore();
 
+    // HACK - forgive me
+    Container.set('db', db);
 
     db.collection('Pets').get()
         .then((snapshot) => {
@@ -27,8 +30,8 @@ export const firebaseLoader: MicroframeworkLoader = async (settings: Microframew
         });
 
 
-        if (settings) {
-            settings.setData('db', db);
-        }
+    if (settings) {
+        settings.setData('db', db);
+    }
 
 };

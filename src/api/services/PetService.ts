@@ -1,27 +1,43 @@
-import { Service } from 'typedi';
-import { OrmRepository } from 'typeorm-typedi-extensions';
-import { PetRepository } from '../repositories/PetRepository';
+import { Service, Inject } from 'typedi';
+// import { OrmRepository } from 'typeorm-typedi-extensions';
+// import { PetRepository } from '../repositories/PetRepository';
 import { Pet } from '../models/Pet';
-import { events } from '../subscribers/events';
-import { EventDispatcher, EventDispatcherInterface } from '../../decorators/EventDispatcher';
+// import { events } from '../subscribers/events';
+// import { EventDispatcher, EventDispatcherInterface } from '../../decorators/EventDispatcher';
 import { Logger, LoggerInterface } from '../../decorators/Logger';
-import { User } from '../models/User';
+// import { User } from '../models/User';
+import * as admin from 'firebase-admin';
 
 
 @Service()
 export class PetService {
 
-    constructor(
-        @OrmRepository() private petRepository: PetRepository,
-        @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
-        @Logger(__filename) private log: LoggerInterface
-    ) { }
+    @Inject('db')
+    private db: admin.firestore.Firestore;
 
-    public find(): Promise<Pet[]> {
-        this.log.info('Find all pets');
-        return this.petRepository.find();
+    constructor(
+        // @OrmRepository() private petRepository: PetRepository,
+        // @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
+        @Logger(__filename) private log: LoggerInterface
+    ) {
     }
 
+
+    public async find(): Promise<Pet[]> {
+        this.log.info('Find all pets');
+        const petSnapShot = await this.db.collection('Pets').get();
+        const pets: Pet[] = [];
+        petSnapShot.forEach(doc => {
+            console.log(doc.id, '=>', doc.data().name);
+            const pet = doc.data() as Pet;
+            pet.id = doc.id;
+            pets.push(pet);
+        });
+
+        return pets;
+        // return this.petRepository.find();
+    }
+/*
     public findByUser(user: User): Promise<Pet[]> {
         this.log.info('Find all pets of the user', user.toString());
         return this.petRepository.find({
@@ -53,5 +69,5 @@ export class PetService {
         this.log.info('Delete a pet');
         return this.petRepository.removeById(id);
     }
-
+*/
 }
