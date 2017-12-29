@@ -1,7 +1,7 @@
-import { JsonController, Get, Post, Put, Param, Delete, Body, OnUndefined } from 'routing-controllers';
+import { JsonController, Get/*, Post, Put, Param, Delete, Body, OnUndefined */} from 'routing-controllers';
 import { PetService } from '../services/PetService';
 import { Pet } from '../models/Pet';
-import { PetNotFoundError } from '../errors/PetNotFoundError';
+// import { PetNotFoundError } from '../errors/PetNotFoundError';
 
 
 // @Authorized()
@@ -16,7 +16,7 @@ export class PetController {
     public find(): Promise<Pet[]> {
         return this.petService.find();
     }
-
+/*
     @Get('/:id')
     @OnUndefined(PetNotFoundError)
     public one( @Param('id') id: string): Promise<Pet | undefined> {
@@ -37,5 +37,6 @@ export class PetController {
     public delete( @Param('id') id: string): Promise<void> {
         return this.petService.delete(id);
     }
+    */
 
 }
