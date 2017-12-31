@@ -3,6 +3,7 @@ import * as jsonfile from 'jsonfile';
 import * as tsconfig from '../tsconfig.json';
 
 
+
 const content: any = tsconfig;
 content.include = [
     'src/**/*',

@@ -5,7 +5,9 @@ import * as pkg from '../../package.json';
 /**
  * Load .env file or for tests the .env.test file.
  */
-dotenv.config({ path: path.join(process.cwd(), `.env${((process.env.NODE_ENV === 'test') ? '.test' : '')}`) });
+const enviromentVariblesPath = path.join(process.cwd(), `.env.${process.env.NODE_ENV || 'development'}`);
+dotenv.config({path: enviromentVariblesPath});
+console.log('Environment variables loaded from :', enviromentVariblesPath);
 
 /**
  * Environment variables

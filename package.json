@@ -5,9 +5,11 @@
   "main": "src/app.ts",
   "scripts": {
     "start": "nps",
+    "serve": "nps serve",
     "test": "npm start test",
     "build": "npm start build",
     "presetup": "yarn install",
+    "migrate": "ts-node ./node_modules/typeorm/cli.js migrations:generate -n generate",
     "setup": "npm start setup.db"
   },
   "engines": {
@@ -83,6 +85,7 @@
     "nps": "^5.7.1",
     "nps-utils": "^1.5.0",
     "path": "^0.12.7",
+    "pg": "^7.4.0",
     "reflect-metadata": "^0.1.10",
     "request": "^2.83.0",
     "routing-controllers": "^0.7.6",
